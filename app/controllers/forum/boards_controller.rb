@@ -1,7 +1,7 @@
 class Forum::BoardsController < ApplicationController
 
   def index
-    @boards = Board.includes(:board_group)
+    @boards = Board.sorted_and_grouped
     respond_with @boards
   end
   
