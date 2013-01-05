@@ -1,0 +1,9 @@
+Hello, this is index
+<% @boards.each do |group| %>
+  <li><%= group.name %></li>
+  <% group.boards.each do |board| %>
+    <li><%= board.name %></li>
+  <% end %>
+
+<% end %>
+
