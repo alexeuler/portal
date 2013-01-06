@@ -4,7 +4,7 @@ FactoryGirl.define do
   
 
 # Generates board, each 3rd board belongs_to new board_group
-# Each 2nd board_group is inverted order both - itself and boards
+# Each 2nd board_group is inverted order both - itself and its boards
   factory :board do
 
     sequence(:name) {|n| "Board#{n}"}
@@ -13,7 +13,7 @@ FactoryGirl.define do
 
     after(:build) do |board|
       group_id=FactoryGirl.generate(:parent)
-      inverted= (group_id%2 == 1)
+      inverted=(group_id%2 == 1)
       board.order=-board.order if inverted
       group=BoardGroup.find_by_id(group_id) || FactoryGirl.create(:board_group, :inverse => inverted)
       board.board_group=group
