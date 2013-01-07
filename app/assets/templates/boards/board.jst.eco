@@ -1,0 +1,7 @@
+  <div class="board_item_name">
+    <a href="#/boards/<%=@model.id%>/topics"><%= @model.name %></a>
+  </div>
+  <div class="board_item_description">
+    <%= @model.description %>
+  </div>
+
