@@ -18,6 +18,7 @@ class Backbone.Views.Boards extends Backbone.View
                                 groupIteraror=1
                                 currentGroupName=@getGroupName(i)                                
                                 groupView=new Backbone.Views.Group model:{name:currentGroupName}
+                                @views.push groupView
                                 @$el.append groupView.$el
                                 
                         view=new Backbone.Views.Board model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroupName(i+1)))
@@ -26,7 +27,7 @@ class Backbone.Views.Boards extends Backbone.View
                 @
                 
         remove:->
-                @views.each (view)->
+                for view in @views
                         view.remove()
                         
         getGroupName:(model_number)->

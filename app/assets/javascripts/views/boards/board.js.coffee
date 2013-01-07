@@ -11,5 +11,6 @@ class Backbone.Views.Board extends Backbone.View
                 @render()
                 
         render: ->
-                @$el.html @template({model:@model.toJSON()})            
+                @$el.html @template({model:@model.toJSON()})
+                @
                 

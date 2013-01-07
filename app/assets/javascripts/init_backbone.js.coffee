@@ -5,4 +5,7 @@ Backbone.Routers={}
 
 $ ->
         $('body').append "<div class='view'></div>"
-        view=new Backbone.Views.Boards
+        $('.view').append "<a href='#/forum/boards'>Boards</a>"
+        new Backbone.Routers.Boards()
+
+        Backbone.history.start()
