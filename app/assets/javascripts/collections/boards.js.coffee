@@ -1,4 +1,4 @@
-class Backbone.Collections.Boards extends Backbone.Collection
+class App.Collections.Boards extends Backbone.Collection
         
-        model: Backbone.Models.Board
-        url:'forum/boards'
+        model: App.Models.Board
+        url:'/forum/boards'

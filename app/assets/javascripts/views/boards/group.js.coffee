@@ -1,4 +1,4 @@
-class Backbone.Views.Group extends Backbone.View
+class App.Views.Group extends Backbone.View
 
         tagName:'div'
         className:'board_group'

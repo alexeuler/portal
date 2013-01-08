@@ -1,4 +1,4 @@
-class Backbone.Views.Boards extends Backbone.View
+class App.Views.Boards extends Backbone.View
 
         el: '.view'
 
@@ -6,7 +6,7 @@ class Backbone.Views.Boards extends Backbone.View
 
         initialize: ->
                 _.bindAll @
-                @collection=new Backbone.Collections.Boards()
+                @collection=new App.Collections.Boards()
                 @collection.fetch success:@render
                 
         render: ->
@@ -17,11 +17,11 @@ class Backbone.Views.Boards extends Backbone.View
                         unless @getGroupName(i) is currentGroupName
                                 groupIteraror=1
                                 currentGroupName=@getGroupName(i)                                
-                                groupView=new Backbone.Views.Group model:{name:currentGroupName}
+                                groupView=new App.Views.Group model:{name:currentGroupName}
                                 @views.push groupView
                                 @$el.append groupView.$el
                                 
-                        view=new Backbone.Views.Board model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroupName(i+1)))
+                        view=new App.Views.Board model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroupName(i+1)))
                         @$el.append view.$el
                         @views.push view
                 @

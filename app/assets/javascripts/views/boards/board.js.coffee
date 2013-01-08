@@ -1,4 +1,4 @@
-class Backbone.Views.Board extends Backbone.View
+class App.Views.Board extends Backbone.View
 
         template: JST['boards/board']
 
