@@ -1,6 +1,7 @@
   <div class="board_item_name">
     <a href="/forum/boards/<%=@model.id%>/topics"><%= @model.name %></a>
-    <a href="/forum/boards/<%=@model.id%>">Show</a>    
+    <a href="/forum/boards/<%=@model.id%>">Показать</a>
+    <a href="/forum/boards/<%=@model.id%>/edit">Изменить</a>        
   </div>
   <div class="board_item_description">
     <%= @model.description %>

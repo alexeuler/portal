@@ -9,7 +9,7 @@ class App.Routers.Boards extends Backbone.Router
         show: (id) ->
                 @clearDisplay()                
                 model=new App.Models.Board id:id
-                @display.view=new App.Views.Board model:model
+                @display.view=new App.Views.Forum.Boards.Show model:model
                 @display.append @display.view.$el
                 model.fetch()                                                        
 
@@ -17,7 +17,7 @@ class App.Routers.Boards extends Backbone.Router
         index:->
                 @clearDisplay()
                 collection=new App.Collections.Boards()                
-                @display.view=new App.Views.Boards collection:collection
+                @display.view=new App.Views.Forum.Boards.Index collection:collection
                 @display.append @display.view.$el
                 collection.fetch()                
 
