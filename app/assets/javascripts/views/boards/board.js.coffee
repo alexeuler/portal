@@ -1,6 +1,6 @@
 class App.Views.Board extends Backbone.View
 
-        template: JST['boards/board']
+        template: JST['forum/boards/board']
 
         tagName:'div'
         className:'board_item'

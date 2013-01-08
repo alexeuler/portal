@@ -4,14 +4,14 @@ window.App=
         Views: {}
         Routers: {}
         Initialize: ->
-                $('body').append "<div class='view'></div>"
+                $('body').append "<div class='display'></div>"
                 $('body').on 'click', 'a', (e)->
                         e.preventDefault()
                         href = $(e.currentTarget).attr('href')
                         Backbone.history.navigate href, trigger:true
                         
-                $('.view').append "<a href='/forum/boards'>Boards</a>"
-                new App.Routers.Boards display:$('.view')
+                $('.display').append "<a href='/forum/boards'>Boards</a>"
+                new App.Routers.Boards display:$('.display')
                 Backbone.history.start({pushState:true})
                 
 $ ->

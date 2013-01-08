@@ -1,15 +1,18 @@
 class App.Views.Boards extends Backbone.View
 
-        el: '.view'
+        tagName:'div'
+        className:'boards'
 
         views:[]
 
         initialize: ->
                 _.bindAll @
                 @collection=new App.Collections.Boards()
-                @collection.fetch success:@render
-                
-        render: ->
+                @listenTo(@collection, 'sync', @reset);                
+                @collection.fetch()
+
+        reset:->
+                @clear()
                 currentGroupName=''
                 groupIteraror=0
                 for model,i in @collection.models
@@ -22,13 +25,22 @@ class App.Views.Boards extends Backbone.View
                                 @$el.append groupView.$el
                                 
                         view=new App.Views.Board model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroupName(i+1)))
+                        @views.push view                
+                @render()
+                                                
+        render: ->
+                for view in @views
                         @$el.append view.$el
-                        @views.push view
                 @
                 
-        remove:->
+        clear:->
                 for view in @views
                         view.remove()
+                @views=[]
+
+        remove:->
+                @clear()
+                super
                         
         getGroupName:(model_number)->
                 @collection.models[model_number]?.get('board_group')?.name
