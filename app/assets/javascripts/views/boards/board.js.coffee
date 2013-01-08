@@ -7,6 +7,7 @@ class App.Views.Board extends Backbone.View
 
         initialize: (options) ->
                 _.bindAll @
+                @listenTo(@model, 'change', @render);
                 @$el.addClass options['classTag']
                 @render()
                 

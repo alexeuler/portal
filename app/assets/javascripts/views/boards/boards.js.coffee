@@ -7,9 +7,8 @@ class App.Views.Boards extends Backbone.View
 
         initialize: ->
                 _.bindAll @
-                @collection=new App.Collections.Boards()
-                @listenTo(@collection, 'sync', @reset);                
-                @collection.fetch()
+                @listenTo(@collection, 'sync', @reset)
+                @reset()              
 
         reset:->
                 @clear()

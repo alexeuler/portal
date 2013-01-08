@@ -9,14 +9,17 @@ class App.Routers.Boards extends Backbone.Router
         show: (id) ->
                 @clearDisplay()                
                 model=new App.Models.Board id:id
-                model.fetch success: =>
-                        @display.view=new App.Views.Board model:model
-                        @display.append @display.view.$el
+                @display.view=new App.Views.Board model:model
+                @display.append @display.view.$el
+                model.fetch()                                                        
+
 
         index:->
                 @clearDisplay()
-                @display.view=new App.Views.Boards
+                collection=new App.Collections.Boards()                
+                @display.view=new App.Views.Boards collection:collection
                 @display.append @display.view.$el
+                collection.fetch()                
 
         clearDisplay:->
                 @display.view?.remove()                
