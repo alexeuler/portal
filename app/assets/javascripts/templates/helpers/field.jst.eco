@@ -1,0 +1,2 @@
+    <td><label for="<%=@options.varName.join '_' %>">Название</label></td>
+    <td><input class="<%=@options.class%>" id="<%=@options.varName.join '_' %>" name="board[name]" size="30" type="text" value="<%= @options.value %>"></td>

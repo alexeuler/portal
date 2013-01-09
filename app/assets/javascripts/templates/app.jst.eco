@@ -1,9 +1,11 @@
 <div class="global">
-  <div class="logo">
-  </div>
-  <div class="tabs">
-  </div>
-  <div class="display">
-    <a href="/forum/boards">Boards</a>
-  </div>
+  <div class="middle">
+    <div class="logo">
+    </div>
+    <div class="tabs">
+      <a href="/forum">Форум</a>    
+    </div>
+    <div class="display">
+    </div>
+  </div>  
 </div>

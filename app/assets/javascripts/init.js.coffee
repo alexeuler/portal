@@ -10,7 +10,7 @@ window.App=
                         href = $(e.currentTarget).attr('href')
                         Backbone.history.navigate href, trigger:true
                 new App.Routers.Boards display:@view.$el.find('.display')
-                Backbone.history.start({pushState:true})
+                Backbone.history.start pushState:true
                 
 $ ->
         App.Initialize()

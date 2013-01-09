@@ -1,7 +1,8 @@
 class App.Routers.Boards extends Backbone.Router
         routes:
                 "forum/boards/:id": "show"
-                "forum/boards": "index"
+                "forum": "index"
+                "forum(/:subsection)": "index"                
                 
         initialize:(options)->
                 @display=options?['display']

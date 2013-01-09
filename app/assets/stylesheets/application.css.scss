@@ -1,0 +1,37 @@
+@import 'bootstrap';
+
+//Colors
+
+$red: #fcfbf9;
+$yellow: #f4f2eb;
+$grayLighter:#f0ddd6;
+$backgroundGradientStop:200px;
+
+//Size
+
+$globalWidth:1000px;
+$globalHeight:1000px;
+$panelRadius:15px;
+
+.global {
+    background-color:$white;
+    @include gradient-vertical-three-colors($blue, $white, $backgroundGradientStop, $white);
+    
+    .middle {
+	@include size($globalHeight,$globalWidth);
+	@include center-block();
+
+	.tabs{
+	    background-color:$yellow;
+	    @include border-radius($panelRadius)
+	}
+
+	.display{
+	    background-color:$yellow;	    
+	    @include border-radius($panelRadius)
+	}
+	
+    }
+    
+}
+
