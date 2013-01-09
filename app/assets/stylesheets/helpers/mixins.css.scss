@@ -1,0 +1,16 @@
+@import 'bootstrap';
+
+$panelRadius:15px;
+
+
+@mixin dropShadow {
+    @include box-shadow(0px 0px 10px 2px #888);
+    }
+
+@mixin panel ($color) {
+    background-color:$color;
+    padding:0.5em 1em;
+    margin:0.5em 0;
+    @include dropShadow;
+    @include border-radius($panelRadius)
+    }

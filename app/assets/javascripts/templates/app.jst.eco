@@ -1,11 +1,23 @@
 <div class="global">
   <div class="middle">
+    
     <div class="logo">
     </div>
+    
     <div class="tabs">
-      <a href="/forum">Форум</a>    
+      <ul>
+	<% for href, value of @tabs:%>
+	<li>
+	  <a href="<%=href%>">
+	    <span><%=value%></span>
+	  </a>
+	</li>
+	<% end %>
+      </ul>
     </div>
+    
     <div class="display">
     </div>
+    
   </div>  
 </div>
