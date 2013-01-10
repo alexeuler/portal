@@ -6,8 +6,13 @@ class App.Views.App extends Backbone.View
         initialize:->
                 @render()
         render:->
-                tabs=
-                        '/forum':'Форум'
-                        '/home':'Главная'        
-                @$el.html @template tabs:tabs
+                @tabs=
+                        buttons:
+                                '/forum':'Форум'
+                                '/home':'Главная'
+                                '/map':'Карта'
+                                '/sign_in': 'Войти'
+                        selected:'/forum'
+                        right:'/sign_in'
+                @$el.html @template tabs:@tabs
         
