@@ -6,6 +6,13 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 tagName:'div'
                 className:'board-item'
 
+                events:
+                    "click #edit":"edit"
+                    "click #cancel":"toggleInputs"                
+                    "click #ok":"submit"
+                    "keyup input":"submit"   
+                
+
                 initialize: (options) ->
                         _.bindAll @
                         @listenTo(@model, 'change', @render);
@@ -16,3 +23,34 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @$el.html @template({model:@model.toJSON()})
                         @
                         
+                edit:->
+                        @toggleInputs()
+
+                submit:(event)->
+                        switch event.type
+                                when 'click'
+                                        @update()
+                                when 'keyup'
+                                        switch event.keyCode
+                                                when 13
+                                                        @update()                                                
+                                                when 27
+                                                        @toggleInputs()
+                update:->
+                        @model.set
+                                name:@$el.find('input#board-name').val()
+                                description:@$el.find('input#board-description').val()
+                        @model.save()
+                                                                
+                toggleInputs:->
+                        @$el.find('input#board-name, 
+                                input#board-description,
+                                a#ok,
+                                a#cancel,
+                                a#board-name,
+                                span#board-description,
+                                a#edit').toggleClass('hide')
+
+                        
+
+                                        

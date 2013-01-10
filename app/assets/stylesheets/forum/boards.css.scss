@@ -5,25 +5,28 @@ $oddItemColor:$grayLighter;
 .boards{
     
     .board-group-item{
+	font-size:$fontSizeLarge;
+	padding:0.25em 0.5em;	
+	margin:0.5em 0;
 	@include drop-shadow;
 	@include border-radius($groupRadius);
 	@include gradient-vertical($evenItemColor,$oddItemColor);
-	padding:0 0.5em;
-	margin:0.5em 0;
-	
     }
 
     .board-item{
-	@include box-shadow(0px 0px 5px 2px #888);	
-	border-top:1px solid $gray;
-	border-bottom:1px solid $gray;
-	padding:10px 10px;
+	border:1px solid $grayLight;
+	border-bottom:0px;	
+	margin:0 $groupRadius;
+	padding:0.5em;
 	
 	&.even{
 	    background-color:$evenItemColor;
 	}
 	&.odd{
 	    background-color:$oddItemColor;
+	}
+	&.last{
+	    border-bottom:1px solid $grayLight;	
 	}
 
 	.board-item-name{

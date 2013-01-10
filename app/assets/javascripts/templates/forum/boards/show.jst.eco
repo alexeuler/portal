@@ -1,9 +1,14 @@
   <div class="board-item-name">
-    <a href="/forum/boards/<%=@model.id%>/topics"><%= @model.name %></a>
-    <a href="/forum/boards/<%=@model.id%>">Показать</a>
-    <a href="/forum/boards/<%=@model.id%>/edit">Изменить</a>        
+    <a id="board-name" href="/forum/boards/<%=@model.id%>/topics"><%= @model.name %></a>
+    <input id="board-name" class="hide" type="text" value="<%= @model.name %>">
+    <a id="ok" class="hide">Ок</a>
+    <a id="cancel" class="hide">Отмена</a>        
+    <a id="edit">Редактировать</a>
+    <a id="up">Вверх</a>
+    <a id="down">Вниз</a>
   </div>
   <div class="board-item-description">
-    <%= @model.description %>
+    <span id="board-description"><%= @model.description %></span>
+    <input id="board-description" class="hide" type="text" value="<%= @model.description %>">    
   </div>
 

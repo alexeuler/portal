@@ -10,4 +10,15 @@ class Forum::BoardsController < ApplicationController
     respond_with @board
   end
 
+  def update
+    @board=Board.find(params[:id])
+    params[:board].delete 'board_group'
+    if @board.update_attributes(params[:board]) 
+      render :text=>'Ok'
+    else
+      render :text=>'Error'
+    end
+
+  end
+
 end
