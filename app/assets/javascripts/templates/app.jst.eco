@@ -5,16 +5,6 @@
     </div>
     
     <div class="tabs">
-      <ul>
-	<% for href, value of @tabs.buttons:%>
-	  <li class="<%=if href is @tabs.selected then 'selected ' else ''%>
-		            <%= if href is @tabs.right then 'right ' else ''%>">
-	  <a href="<%=href%>">
-	    <span><%=value%></span>
-	  </a>
-	</li>
-	<% end %>
-      </ul>
     </div>
     
     <div class="display">
