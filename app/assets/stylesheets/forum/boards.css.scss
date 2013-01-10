@@ -1,3 +1,37 @@
-// Place all the styles related to the boards controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+$groupRadius:15px;
+$evenItemColor:$red;
+$oddItemColor:$grayLighter;
+
+.boards{
+    
+    .board-group-item{
+	@include drop-shadow;
+	@include border-radius($groupRadius);
+	@include gradient-vertical($evenItemColor,$oddItemColor);
+	padding:0 0.5em;
+	margin:0.5em 0;
+	
+    }
+
+    .board-item{
+	@include box-shadow(0px 0px 5px 2px #888);	
+	border-top:1px solid $gray;
+	border-bottom:1px solid $gray;
+	padding:10px 10px;
+	
+	&.even{
+	    background-color:$evenItemColor;
+	}
+	&.odd{
+	    background-color:$oddItemColor;
+	}
+
+	.board-item-name{
+	    font-size:$fontSizeLarge;
+	}
+
+	.board-item-description{
+	    font-style:italic;
+	}
+    }
+}

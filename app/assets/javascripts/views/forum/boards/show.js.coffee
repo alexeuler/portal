@@ -4,7 +4,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 template: JST['templates/forum/boards/show']
 
                 tagName:'div'
-                className:'board_item'
+                className:'board-item'
 
                 initialize: (options) ->
                         _.bindAll @

@@ -1,6 +1,6 @@
 @import 'bootstrap';
 
-@mixin dropShadow {
+@mixin drop-shadow {
     @include box-shadow(0px 0px 10px 2px #888);
     }
 
@@ -8,6 +8,6 @@
     background-color:$color;
     padding:0.5em 1em;
     margin:0.5em 0;
-    @include dropShadow;
+    @include drop-shadow;
     @include border-radius($panelRadius)
     }
