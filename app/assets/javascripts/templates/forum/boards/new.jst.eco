@@ -1,0 +1,9 @@
+<div class="board-item-inputs">
+  <div><input id="board-name" type="text" value="" placeholder="Название"></div>
+  <div><input id="board-description" type="text" value="" placeholder="Описание"></div>
+  <div><input id="board-group" type="text" value="" placeholder="Группа"></div>
+  <div>
+    <a id="ok" href=''>Ок</a>
+    <a id="cancel" href=''>Отмена</a>
+  </div> 
+</div>

@@ -7,25 +7,38 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 className:'board-item'
 
                 events:
-                    "click #edit":"edit"
-                    "click #cancel":"toggleInputs"                
-                    "click #ok":"submit"
-                    "keyup input":"submit"   
+                        "click .board-item-inputs, .board-item-controls":"contain"
+                        "click #edit":"toggleEdit"
+                        "click #cancel":"toggleEdit"                
+                        "click #ok":"submit"
+                        "keyup input":"submit"   
                 
 
                 initialize: (options) ->
                         _.bindAll @
                         @listenTo(@model, 'sync', @render);
-                        @$el.addClass options['classTag']
+                        @listenTo(@model, 'change', @change);                        
+                        @$el.addClass options?['classTag']
                         @render()
                         
                 render: ->
                         @$el.html @template({model:@model.toJSON()})
                         @
-                        
-                edit:->
-                        @toggleInputs()
 
+                change:(model, options)->
+                        for key,value of model.changed
+                                switch key
+                                        when 'name'
+                                                @$el.find('input#board-name').val(value)
+                                                @$el.find('a#board-name').text(value)
+                                        when 'description'
+                                                @$el.find('input#board-description').val(value)
+                                                @$el.find('span#board-description').text(value)                      
+                        
+                contain:(event)->
+                        event.preventDefault()
+                        event.stopPropagation()
+                        
                 submit:(event)->
                         switch event.type
                                 when 'click'
@@ -35,7 +48,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                                 when 13
                                                         @update()                                                
                                                 when 27
-                                                        @toggleInputs()
+                                                        @toggleEdit()
                 update:->
                         @model.set
                                 name:@$el.find('input#board-name').val()
@@ -43,14 +56,10 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @model.save()
                         @model.fetch()                        
                                                                 
-                toggleInputs:->
-                        @$el.find('input#board-name, 
-                                input#board-description,
-                                a#ok,
-                                a#cancel,
-                                a#board-name,
-                                span#board-description,
-                                a#edit').toggleClass('hide')
+                toggleEdit:->
+                        @$el
+                        .find('.board-item-show, .board-item-inputs, .board-item-controls')
+                        .toggleClass('hide')
 
                         
 

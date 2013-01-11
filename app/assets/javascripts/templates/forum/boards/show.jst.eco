@@ -1,14 +1,21 @@
-  <div class="board-item-name">
-    <a id="board-name" href="/forum/boards/<%=@model.id%>/topics"><%= @model.name %></a>
-    <input id="board-name" class="hide" type="text" value="<%= @model.name %>">
-    <a id="ok" class="hide">Ок</a>
-    <a id="cancel" class="hide">Отмена</a>        
-    <a id="edit">Редактировать</a>
-    <a id="up">Вверх</a>
-    <a id="down">Вниз</a>
-  </div>
-  <div class="board-item-description">
-    <span id="board-description"><%= @model.description %></span>
-    <input id="board-description" class="hide" type="text" value="<%= @model.description %>">    
-  </div>
+<div class="board-item-show">
+  <a id="board-name" href="/forum/boards/<%=@model.id%>/topics"><%= @model.name %></a> <br/>
+  <span id="board-description"><%= @model.description %></span>
+  
+</div>
+
+<div class="board-item-inputs hide">
+  <div><input id="board-name" type="text" value="<%= @model.name %>"></div>
+  <div><input id="board-description" type="text" value="<%= @model.description %>"></div>
+  <div>
+    <a id="ok" href=''>Ок</a>
+    <a id="cancel" href=''>Отмена</a>
+  </div> 
+</div>
+
+<div class="board-item-controls">
+  <a id="edit" href=''>Редактировать</a>
+  <a id="up" href=''>Вверх</a>
+  <a id="down" href=''>Вниз</a>
+</div>
 

@@ -6,8 +6,12 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
 
                 initialize: (options) ->
                         _.bindAll @
+                        @listenTo(@model, 'change', @change)
                         @render()
                         
                 render: ->
-                        @$el.html @model.name            
+                        @$el.html @model.get('name')
                         
+                change:(model, options)->                        
+                        if model.changed.name?
+                                @$el.text(model.changed.name)

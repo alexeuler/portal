@@ -4,6 +4,9 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 tagName:'div'
                 className:'boards'
 
+                events:
+                        "click #new":"new"
+
                 views:[]
 
                 initialize: ->
@@ -17,25 +20,39 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         groupIteraror=0
                         for model,i in @collection.models
                                 groupIteraror++                        
-                                unless @getGroupName(i) is currentGroupName
+                                unless @getGroup(i).name is currentGroupName
                                         groupIteraror=1
-                                        currentGroupName=@getGroupName(i)                                
-                                        groupView=new App.Views.Forum.Groups.Show model:{name:currentGroupName}
+                                        currentGroupName=@getGroup(i).name                                
+                                        groupView=new App.Views.Forum.Groups.Show model:new App.Models.Group(@getGroup(i))
                                         @views.push groupView
                                         @$el.append groupView.$el
                                         
-                                view=new App.Views.Forum.Boards.Show model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroupName(i+1)))
+                                view=new App.Views.Forum.Boards.Show model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroup(i+1)?.name))
                                 @views.push view                
                         @render()
 
-                add:->
                                                         
                 render: ->
                         @$el.empty()
+                        @$el.append '<a id="new" href="">Создать</a>'                        
                         for view in @views
                                 @$el.append view.$el
                         @
-                        
+
+                new:(e)->
+                        e.preventDefault()
+                        e.stopPropagation()
+                        board=new App.Models.Board()
+                        group=new App.Models.Group()
+                        @views.unshift(new App.Views.Forum.Groups.Show model:group)
+                        @views.unshift(new App.Views.Forum.Boards.Show model:board, classTag:'even')
+                        @views.unshift(new App.Views.Forum.Boards.New board:board, group:group)
+                        @views[1].$el.find('.board-item-controls').addClass('hide')
+                        @$el.prepend @views[i].$el for i in [0..2]
+        
+                add:->
+
+                                                                        
                 clear:->
                         for view in @views
                                 view.remove()
@@ -45,8 +62,8 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @clear()
                         super
                                 
-                getGroupName:(model_number)->
-                        @collection.models[model_number]?.get('board_group')?.name
+                getGroup:(model_number)->
+                        @collection.models[model_number]?.get('board_group')
                         
                 makeClassTag:(iterator, last)->
                         classTag=''

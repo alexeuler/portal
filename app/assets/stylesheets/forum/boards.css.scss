@@ -4,9 +4,6 @@ $oddItemColor:$grayLighter;
 
 .boards{
 
-    //Hack to override strange behavior - after inputs cursor type changes
-    a{cursor:pointer;}
-    
     .board-group-item{
 	font-size:$fontSizeLarge;
 	padding:0.25em 0.5em;	
@@ -32,12 +29,10 @@ $oddItemColor:$grayLighter;
 	    border-bottom:1px solid $grayLight;	
 	}
 
-	.board-item-name{
-	    font-size:$fontSizeLarge;
+	.board-item-show{
+	    a{font-size:$fontSizeLarge;}
+	    span{font-style:italic;}
 	}
 
-	.board-item-description{
-	    font-style:italic;
-	}
     }
 }
