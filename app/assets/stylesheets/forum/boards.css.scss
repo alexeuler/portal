@@ -3,6 +3,9 @@ $evenItemColor:$red;
 $oddItemColor:$grayLighter;
 
 .boards{
+
+    //Hack to override strange behavior - after inputs cursor type changes
+    a{cursor:pointer;}
     
     .board-group-item{
 	font-size:$fontSizeLarge;

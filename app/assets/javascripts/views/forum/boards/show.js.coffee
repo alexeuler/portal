@@ -15,7 +15,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
 
                 initialize: (options) ->
                         _.bindAll @
-                        @listenTo(@model, 'change', @render);
+                        @listenTo(@model, 'sync', @render);
                         @$el.addClass options['classTag']
                         @render()
                         
@@ -41,6 +41,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 name:@$el.find('input#board-name').val()
                                 description:@$el.find('input#board-description').val()
                         @model.save()
+                        @model.fetch()                        
                                                                 
                 toggleInputs:->
                         @$el.find('input#board-name, 
