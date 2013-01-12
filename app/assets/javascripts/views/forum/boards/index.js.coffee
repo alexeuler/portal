@@ -16,17 +16,19 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
 
                 reset:->
                         @clear()
-                        currentGroupName=''
+                        currentGroup=id:-1
                         groupIteraror=0
                         for model,i in @collection.models
                                 groupIteraror++                        
-                                unless @getGroup(i).name is currentGroupName
+                                unless (extracted=@extractGroup(i)).id is currentGroup.id
+                                        currentGroup=extracted                                
                                         groupIteraror=1
-                                        currentGroupName=@getGroup(i).name                                
-                                        groupView=new App.Views.Forum.Groups.Show model:new App.Models.Group(@getGroup(i))
+                                        groupView=new App.Views.Forum.Groups.Show model:new App.Models.BoardGroup(extracted)
                                         @views.push groupView
                                         
-                                view=new App.Views.Forum.Boards.Show model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroup(i+1)?.name))
+                                view=new App.Views.Forum.Boards.Show
+                                        model:model,
+                                        classTag: @makeClassTag(groupIteraror, not(currentGroup is @extractGroup(i+1)))
                                 @views.push view                
                         @render()
 
@@ -61,7 +63,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @clear()
                         super
                                 
-                getGroup:(model_number)->
+                extractGroup:(model_number)->
                         @collection.models[model_number]?.get('board_group')
                         
                 makeClassTag:(iterator, last)->
