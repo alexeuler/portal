@@ -25,7 +25,6 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                         currentGroupName=@getGroup(i).name                                
                                         groupView=new App.Views.Forum.Groups.Show model:new App.Models.Group(@getGroup(i))
                                         @views.push groupView
-                                        @$el.append groupView.$el
                                         
                                 view=new App.Views.Forum.Boards.Show model:model, classTag: @makeClassTag(groupIteraror, not(currentGroupName is @getGroup(i+1)?.name))
                                 @views.push view                

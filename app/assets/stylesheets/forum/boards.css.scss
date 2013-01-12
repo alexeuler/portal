@@ -5,7 +5,11 @@ $oddItemColor:$grayLighter;
 .boards{
 
     .board-group-item{
-	font-size:$fontSizeLarge;
+	input {margin:0}
+	
+	.board-group-item-show{
+	    font-size:$fontSizeLarge;	    
+	}
 	padding:0.25em 0.5em;	
 	margin:0.5em 0;
 	@include drop-shadow;

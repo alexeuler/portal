@@ -1,0 +1,11 @@
+<span class='board-group-item-show'><%= @model.name %></span>
+<span class="board-group-item-inputs hide">
+  <input id="board-group-name" type="text" value="<%= @model.name %>">
+  <a id='ok' href="">Ок</a>
+  <a id='cancel' href="">Отмена</a>
+</span>
+<span class="board-group-item-controls">
+  <a id='edit' href="">Редактировать</a>
+  <a id='up' href="">Вверх</a>
+  <a id='down' href="">Вниз</a>
+</span>
