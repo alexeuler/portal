@@ -24,7 +24,7 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
                         
                 change:(model, options)->                        
                         if model.changed.name?
-                                @$el.text(model.changed.name)
+                                @$el.find('.board-group-item-show').text(model.changed.name)
 
                 contain:(event)->
                         event.preventDefault()

@@ -17,18 +17,18 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 reset:->
                         @clear()
                         currentGroup=id:-1
-                        groupIteraror=0
+                        boardNumberInGroup=0
                         for model,i in @collection.models
-                                groupIteraror++                        
+                                boardNumberInGroup++                        
                                 unless (extracted=@extractGroup(i)).id is currentGroup.id
                                         currentGroup=extracted                                
-                                        groupIteraror=1
+                                        boardNumberInGroup=1
                                         groupView=new App.Views.Forum.Groups.Show model:new App.Models.BoardGroup(extracted)
                                         @views.push groupView
                                         
                                 view=new App.Views.Forum.Boards.Show
                                         model:model,
-                                        classTag: @makeClassTag(groupIteraror, not(currentGroup is @extractGroup(i+1)))
+                                        classTag: @makeClassTag(boardNumberInGroup, not(currentGroup is @extractGroup(i+1)))
                                 @views.push view                
                         @render()
 
@@ -44,11 +44,13 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         e.preventDefault()
                         e.stopPropagation()
                         board=new App.Models.Board()
-                        group=new App.Models.Group()
+                        group=new App.Models.BoardGroup()
                         @views.unshift(new App.Views.Forum.Groups.Show model:group)
                         @views.unshift(new App.Views.Forum.Boards.Show model:board, classTag:'even')
                         @views.unshift(new App.Views.Forum.Boards.New board:board, group:group)
                         @views[1].$el.find('.board-item-controls').addClass('hide')
+                        @views[2].$el.find('.board-group-item-controls').addClass('hide')                        
+                        @$el.find('#new').addClass('hide')
                         @$el.prepend @views[i].$el for i in [0..2]
         
                 add:->
