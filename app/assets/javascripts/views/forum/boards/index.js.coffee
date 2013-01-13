@@ -48,13 +48,14 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @views.unshift(new App.Views.Forum.Groups.Show model:group)
                         @views.unshift(new App.Views.Forum.Boards.Show model:board, classTag:'even')
                         @views.unshift(new App.Views.Forum.Boards.New board:board, group:group)
+                        @views[0].on 'boards.add',@add
                         @views[1].$el.find('.board-item-controls').addClass('hide')
                         @views[2].$el.find('.board-group-item-controls').addClass('hide')                        
                         @$el.find('#new').addClass('hide')
                         @$el.prepend @views[i].$el for i in [0..2]
         
-                add:->
-
+                add:(view)->
+                        @collection.fetch()
                                                                         
                 clear:->
                         for view in @views

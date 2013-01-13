@@ -43,11 +43,13 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                                                 description:@$el.find('#board-description').val()
                                                         @group.set name:@$el.find('#board-group').val()
                 create:->
-                        @model.set
+                        @board.set
                                 name:@$el.find('input#board-name').val()
                                 description:@$el.find('input#board-description').val()
-                                board_group:@$el.find('input#board-group').val()
-                        @model.save()
+                                board_group:
+                                        name:@$el.find('input#board-group').val()
+                        @board.save()
+                        @trigger 'boards.add', @
                                                                 
                 toggleEdit:->
                         @$el
