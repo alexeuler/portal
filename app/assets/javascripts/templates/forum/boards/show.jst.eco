@@ -17,5 +17,6 @@
   <a id="edit" href=''>Редактировать</a>
   <a id="up" href=''>Вверх</a>
   <a id="down" href=''>Вниз</a>
+  <a id="delete" href=''>Удалить</a>
 </div>
 

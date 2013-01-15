@@ -24,4 +24,10 @@ class Forum::BoardsController < ApplicationController
     @model.update_attributes(params[:board]) ? render(:text=>request_success(self)) : render(:text => request_error(self))
   end
 
+  def destroy
+    @model=Board.find(params[:id])
+    @model.destroy
+    render(:text=>request_success(self))
+  end
+
 end

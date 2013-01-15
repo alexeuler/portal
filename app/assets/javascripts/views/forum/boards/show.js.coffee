@@ -8,11 +8,11 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
 
                 events:
                         "click .board-item-inputs, .board-item-controls":"contain"
+                        "click #delete":"destroy"                        
                         "click #edit":"toggleEdit"
                         "click #cancel":"toggleEdit"                
                         "click #ok":"submit"
                         "keyup input":"submit"   
-                
 
                 initialize: (options) ->
                         _.bindAll @
@@ -54,8 +54,13 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 name:@$el.find('input#board-name').val()
                                 description:@$el.find('input#board-description').val()
                         @model.save()
-                        @model.fetch()                        
-                                                                
+                        @model.fetch()
+
+                destroy:->
+                        confirm 'Вы уверены?'
+                        @model.destroy()
+                        @remove()
+                        
                 toggleEdit:->
                         @$el
                         .find('.board-item-show, .board-item-inputs, .board-item-controls')

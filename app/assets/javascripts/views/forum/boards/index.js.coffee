@@ -28,11 +28,10 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                         
                                 view=new App.Views.Forum.Boards.Show
                                         model:model,
-                                        classTag: @makeClassTag(boardNumberInGroup, not(currentGroup is @extractGroup(i+1)))
+                                        classTag: @makeClassTag(boardNumberInGroup, not(currentGroup.id is @extractGroup(i+1)?.id))
                                 @views.push view                
                         @render()
 
-                                                        
                 render: ->
                         @$el.empty()
                         @$el.append '<a id="new" href="">Создать</a>'                        
@@ -45,16 +44,22 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         e.stopPropagation()
                         board=new App.Models.Board()
                         group=new App.Models.BoardGroup()
-                        @views.unshift(new App.Views.Forum.Groups.Show model:group)
-                        @views.unshift(new App.Views.Forum.Boards.Show model:board, classTag:'even')
-                        @views.unshift(new App.Views.Forum.Boards.New board:board, group:group)
-                        @views[0].on 'boards.add',@add
-                        @views[1].$el.find('.board-item-controls').addClass('hide')
-                        @views[2].$el.find('.board-group-item-controls').addClass('hide')                        
+                        groupPreview=new App.Views.Forum.Groups.Show model:group
+                        boardPreview=new App.Views.Forum.Boards.Show model:board, classTag:'even'
+                        inputView=new App.Views.Forum.Boards.New board:board, group:group
+                        groupPreview.$el.find('.board-group-item-controls').addClass('hide')
+                        boardPreview.$el.find('.board-item-controls').addClass('hide')
+                        inputView.on 'boards.add',@add
+
                         @$el.find('#new').addClass('hide')
+                        @views.unshift(groupPreview)
+                        @views.unshift(boardPreview)
+                        @views.unshift(inputView)                                                
                         @$el.prepend @views[i].$el for i in [0..2]
+                                                
         
                 add:(view)->
+                        @views.shift().remove for i in [0..2]
                         @collection.fetch()
                                                                         
                 clear:->
