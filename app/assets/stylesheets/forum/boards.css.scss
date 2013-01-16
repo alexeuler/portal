@@ -22,7 +22,7 @@ $oddItemColor:$grayLighter;
 	border-bottom:0px;	
 	margin:0 $groupRadius;
 	padding:0.5em;
-	
+
 	&:nth-child(2n+1){
 	    background-color:$evenItemColor;
 	}
@@ -33,6 +33,10 @@ $oddItemColor:$grayLighter;
 	    border-bottom:1px solid $grayLight;	
 	}
 
+	&.new-inputs {
+	    background-color:$evenItemColor
+	}
+	
 	.board-item-show{
 	    a{font-size:$fontSizeLarge;}
 	    span{font-style:italic;}

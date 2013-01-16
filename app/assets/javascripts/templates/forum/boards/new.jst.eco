@@ -1,4 +1,14 @@
-<div class="board-item-inputs">
+<a id="new" href="">Создать</a>
+
+<div class="board-group-item-preview hide">
+  
+</div>
+
+<div class="board-item-preview hide">
+  
+</div>
+
+<div class="new-inputs board-item hide">
   <div><input id="board-name" type="text" value="" placeholder="Название"></div>
   <div><input id="board-description" type="text" value="" placeholder="Описание"></div>
   <div><input id="board-group" type="text" value="" placeholder="Группа"></div>

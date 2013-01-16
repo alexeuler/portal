@@ -4,23 +4,27 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 template: JST['templates/forum/boards/new']
 
                 tagName:'div'
-                className:'board-item even first last'
+                className:'board-item-new'
 
                 events:
-                        "click .board-item-inputs":"contain"
-                        "click #cancel":"remove"                
+                        "click":"contain"
+                        "click #new":"toggle"                        
+                        "click #cancel":"toggle"                
                         "click #ok":"submit"
                         "keyup input":"submit"   
-                
 
+                
                 initialize: (options) ->
-                        _.bindAll @
-                        @board=options?.board
-                        @group=options?.group                        
-                        @render()
-                        
+                        @groupPreview=new App.Views.Forum.Groups.Show model:new App.Models.BoardGroup()
+                        @boardPreview=new App.Views.Forum.Boards.Show model:new App.Models.Board()
+                        @groupPreview.render().$el.find('.board-group-item-controls').addClass('hide')
+                        @boardPreview.render().$el.find('.board-item-controls').addClass('hide')
+
+                                                
                 render: ->
                         @$el.html @template()
+                        @$el.find('.board-group-item-preview').html @groupPreview.$el
+                        @$el.find('.board-item-preview').html @boardPreview.$el                        
                         @
 
                 contain:(event)->
@@ -38,23 +42,21 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                                 when 27
                                                         @remove()
                                                 else
-                                                        @board.set
-                                                                name:@$el.find('#board-name').val()
-                                                                description:@$el.find('#board-description').val()
-                                                        @group.set name:@$el.find('#board-group').val()
+                                                        @boardPreview.model.set
+                                                                name:@$el.find('.new-inputs input#board-name').val()
+                                                                description:@$el.find('.new-inputs input#board-description').val()
+                                                        @groupPreview.model.set name:@$el.find('.new-inputs input#board-group').val()
                 create:->
-                        @board.set
-                                name:@$el.find('input#board-name').val()
-                                description:@$el.find('input#board-description').val()
+                        @boardPreview.model.set
+                                name:@$el.find('.new-inputs input#board-name').val()
+                                description:@$el.find('.new-inputs input#board-description').val()
                                 board_group:
-                                        name:@$el.find('input#board-group').val()
-                        @board.save()
+                                        name:@$el.find('.new-inputs #board-group').val()
+                        @boardPreview.model.save()
                         @trigger 'boards.add', @
                                                                 
-                toggleEdit:->
-                        @$el
-                        .find('.board-item-show, .board-item-inputs, .board-item-controls')
-                        .toggleClass('hide')
+                toggle:->
+                        @$el.children().toggleClass('hide')
 
                         
 
