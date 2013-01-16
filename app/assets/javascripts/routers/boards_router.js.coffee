@@ -11,7 +11,7 @@ class App.Routers.Boards extends Backbone.Router
                 @clearDisplay()                
                 model=new App.Models.Board id:id
                 @display.view=new App.Views.Forum.Boards.Show model:model
-                @display.append @display.view.$el
+                @display.append @display.view.render().$el
                 model.fetch()                                                        
 
 

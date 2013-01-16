@@ -11,17 +11,17 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
                         "keyup input":"submit"   
 
                 tagName:'div'
-                className:'board-group-item'
+                className:'board-group'
 
                 initialize: (options) ->
-                        _.bindAll @
+                        @views=[]                        
                         @listenTo(@model, 'change', @change)
-                        @listenTo(@model, 'sync', @render)                        
-                        @render()
-                        
+                        @listenTo(@model, 'sync', @render)                                         
                 render: ->
                         @$el.html(@template model:@model.toJSON())
-                        
+                        @$el.find('.board-group-boards').append view.render().$el for view in @views
+                        @
+                                
                 change:(model, options)->                        
                         if model.changed.name?
                                 @$el.find('.board-group-item-show').text(model.changed.name)
@@ -51,3 +51,6 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
                         .find('.board-group-item-show, .board-group-item-inputs, .board-group-item-controls')
                         .toggleClass('hide')
                         
+                remove:->
+                        view.remove() for view in @views
+                        @views=[]

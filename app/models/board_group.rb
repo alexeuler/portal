@@ -5,7 +5,7 @@ class BoardGroup < ActiveRecord::Base
   before_save :init
 
   def init
-    self.order||=self.class.minimum(:order)-1
+    self.order||=(self.class.minimum(:order) || 0) -1
   end
 
 end

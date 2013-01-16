@@ -23,13 +23,13 @@ $oddItemColor:$grayLighter;
 	margin:0 $groupRadius;
 	padding:0.5em;
 	
-	&.even{
+	&:nth-child(2n+1){
 	    background-color:$evenItemColor;
 	}
-	&.odd{
+	&:nth-child(2n){
 	    background-color:$oddItemColor;
 	}
-	&.last{
+	&:last-child{
 	    border-bottom:1px solid $grayLight;	
 	}
 

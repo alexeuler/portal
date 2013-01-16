@@ -7,36 +7,28 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 events:
                         "click #new":"new"
 
-                views:[]
-
                 initialize: ->
-                        _.bindAll @
+                        @views=[]
                         @listenTo(@collection, 'sync', @reset)
-                        @reset()              
 
                 reset:->
                         @clear()
                         currentGroup=id:-1
-                        boardNumberInGroup=0
                         for model,i in @collection.models
-                                boardNumberInGroup++                        
                                 unless (extracted=@extractGroup(i)).id is currentGroup.id
-                                        currentGroup=extracted                                
-                                        boardNumberInGroup=1
+                                        currentGroup=extracted
                                         groupView=new App.Views.Forum.Groups.Show model:new App.Models.BoardGroup(extracted)
                                         @views.push groupView
                                         
-                                view=new App.Views.Forum.Boards.Show
-                                        model:model,
-                                        classTag: @makeClassTag(boardNumberInGroup, not(currentGroup.id is @extractGroup(i+1)?.id))
-                                @views.push view                
+                                view=new App.Views.Forum.Boards.Show model:model                                        
+                                groupView.views.push view           
                         @render()
-
+                        
                 render: ->
                         @$el.empty()
                         @$el.append '<a id="new" href="">Создать</a>'                        
                         for view in @views
-                                @$el.append view.$el
+                                @$el.append view.render().$el
                         @
 
                 new:(e)->
