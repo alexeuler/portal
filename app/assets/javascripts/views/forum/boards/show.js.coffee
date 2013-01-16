@@ -7,10 +7,10 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                 className:'board-item'
 
                 events:
-                        "click .board-item-inputs, .board-item-controls":"contain"
+                        "click":"contain"
                         "click #delete":"destroy"                        
-                        "click #edit":"toggleEdit"
-                        "click #cancel":"toggleEdit"                
+                        "click #edit":"toggle"
+                        "click #cancel":"toggle"                
                         "click #ok":"submit"
                         "keyup input":"submit"   
 
@@ -48,7 +48,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                                 when 13
                                                         @update()                                                
                                                 when 27
-                                                        @toggleEdit()
+                                                        @toggle()
                 update:->
                         @model.set
                                 name:@$el.find('input#board-name').val()
@@ -57,14 +57,14 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @model.fetch()
 
                 destroy:->
-                        confirm 'Вы уверены?'
-                        @model.destroy()
-                        @remove()
+                        if confirm 'Вы уверены?'
+                                @model.destroy()
+                                @trigger "boards.destroy", @                                
+                                @remove()
+
                         
-                toggleEdit:->
-                        @$el
-                        .find('.board-item-show, .board-item-inputs, .board-item-controls')
-                        .toggleClass('hide')
+                toggle:->
+                        @$el.children().toggleClass('hide')
 
                         
 
