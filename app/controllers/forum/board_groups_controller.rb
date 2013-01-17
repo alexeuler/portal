@@ -15,4 +15,11 @@ class Forum::BoardGroupsController < ApplicationController
     @model.update_attributes(params[:board_group]) ? render(:text=>request_success(self)) : render(:text => request_error(self))
   end
 
+  def destroy
+    @model=BoardGroup.find(params[:id])
+    @model.destroy
+    render(:text=>request_success(self))
+  end
+
+
 end

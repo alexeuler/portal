@@ -41,12 +41,17 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
 
                 destroy:(view)->
                         @collection.remove(view.model)
+                        id=view.model.toJSON().board_group.id
                         boards=@collection.filter (model)->
-                                model.toJSON().board_group.id is view.model.toJSON().board_group.id
+                                model.toJSON().board_group.id is id
                         if boards.length is 0
-                                group=new App.Models.BoardGroup id:view.model.toJSON().board_group.id
-                                group.destroy() 
-                                                                        
+                                group=new App.Models.BoardGroup id:id
+                                group.destroy()
+                                groupView=_.find @views, (_view)=>
+                                        _view.model?.id is id
+                                groupView.remove()
+                                @views=_.without @views, groupView
+
                 clear:->
                         for view in @views
                                 view.remove()
@@ -58,4 +63,4 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 
                 extractGroup:(model_number)->
                         @collection.models[model_number]?.get('board_group')
-                        
+

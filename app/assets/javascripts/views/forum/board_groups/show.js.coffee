@@ -54,3 +54,4 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
                 remove:->
                         view.remove() for view in @views
                         @views=[]
+                        super
