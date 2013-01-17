@@ -9,11 +9,12 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         _.bindAll @
                         @views=[]
                         @listenTo(@collection, 'sync', @reset)
-
+                        @listenTo(@collection, 'add', @add)
+                        @listenTo(@collection, 'remove', @destroy)
                 reset:->
                         @clear()
                         @views.push new App.Views.Forum.Boards.New()
-                        @views[0].on 'boards.add',@add
+                        @views[0].on 'collection.add',@addModel
                         currentGroupModel=new App.Models.BoardGroup id:-1
                         for model,i in @collection.models
                                 unless model.group.get('id') is currentGroupModel.get('id')
@@ -21,7 +22,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                         groupView=new App.Views.Forum.Groups.Show model:currentGroupModel
                                         @views.push groupView
                                 view=new App.Views.Forum.Boards.Show model:model
-                                view.on 'boards.destroy', @destroy
+                                view.on 'collection.destroy', @destroyModel
                                 groupView.views.push view           
                         @render()
                         
@@ -31,20 +32,31 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 @$el.append view.render().$el
                         @
 
-                add:(view)->
+                add:(model, collection, options)->
                         @collection.fetch()
 
-                destroy:(view)->
-                        @collection.remove(view.model)
-                        id=view.model.group.get('id')
-                        boards=@collection.select (model)->
-                                model.group.get('id') is id
+                destroy:(model, collection, options)->
+                        groupID=model.group.get('id')
+                        ID=model.get('id')
+                        groupView=_.find @views, (_view)->
+                                _view.model?.get('id') is groupID
+                        boardView=_.find groupView.views, (_view)->
+                                _view.model?.get('id') is ID
+                        boardView.remove()
+                        groupView.views=_.without groupView.views, boardView                        
+                        boards=collection.select (_model)->
+                                _model.group.get('id') is groupID
                         if boards.length is 0
-                                new App.Models.BoardGroup({id:id}).destroy()
-                                groupView=_.find @views, (_view)=>
-                                        _view.model?.get('id') is id
                                 groupView.remove()
                                 @views=_.without @views, groupView
+
+                addModel:(model)->
+                        model.save()
+                        @collection.add(model)
+
+                destroyModel:(model)->
+                        model.destroy()
+                        @collection.remove(model)
 
                 clear:->
                         for view in @views

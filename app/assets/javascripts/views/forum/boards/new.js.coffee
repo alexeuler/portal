@@ -52,8 +52,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 description:@$el.find('.new-inputs input#board-description').val()
                                 board_group:
                                         name:@$el.find('.new-inputs #board-group').val()
-                        @boardPreview.model.save()
-                        @trigger 'boards.add', @
+                        @trigger 'collection.add', @boardPreview.model
                                                                 
                 toggle:->
                         @$el.children().toggleClass('hide')

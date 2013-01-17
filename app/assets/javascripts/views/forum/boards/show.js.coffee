@@ -58,9 +58,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
 
                 destroy:->
                         if confirm 'Вы уверены?'
-                                @model.destroy()
-                                @trigger "boards.destroy", @                                
-                                @remove()
+                                @trigger "collection.destroy", @model
 
                         
                 toggle:->

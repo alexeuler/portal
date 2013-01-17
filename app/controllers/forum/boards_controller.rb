@@ -27,6 +27,8 @@ class Forum::BoardsController < ApplicationController
   def destroy
     @model=Board.find(params[:id])
     @model.destroy
+    activeGroupIds=Board.select(:board_group_id).uniq.map {|x| x.board_group_id}
+    BoardGroup.where("id NOT IN (?)", activeGroupIds).delete_all unless BoardGroup.count == activeGroupIds.count
     render(:text=>request_success(self))
   end
 
