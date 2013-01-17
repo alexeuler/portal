@@ -4,6 +4,13 @@ class Board < ActiveRecord::Base
   attr_accessible :board_group_id, :description, :name, :order, :board_group
   belongs_to :board_group
 
+  before_save :init
+
+  def init
+    order||=(self.class.where(:board_group_id=>self.board_group_id).minimum(:order) || 0) - 1
+  end
+
+
   def as_json(options={})
     json=super(options)
     json["board_group"]=board_group.as_json

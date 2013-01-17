@@ -33,11 +33,23 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                         @
 
                 add:(model, collection, options)->
-                        @collection.fetch()
+                        groupName=model.group.get('name')
+                        groupView=_.find @views, (_view)->
+                                _view.model?.get('name') is groupName
+                        unless groupView
+                                groupView=new App.Views.Forum.Groups.Show model:model.group
+                                @views.splice(1,0,groupView)
+                                groupView.render().$el.insertAfter @$el.find('.board-item-new')
+                                
+                        boardView=new App.Views.Forum.Boards.Show model:model
+                        boardView.on 'collection.destroy', @destroyModel
+                        groupView.$el.find('.board-group-boards').prepend boardView.render().$el
+                        groupView.views.push boardView
 
+                        
                 destroy:(model, collection, options)->
+                        ID=model.get('id')                        
                         groupID=model.group.get('id')
-                        ID=model.get('id')
                         groupView=_.find @views, (_view)->
                                 _view.model?.get('id') is groupID
                         boardView=_.find groupView.views, (_view)->

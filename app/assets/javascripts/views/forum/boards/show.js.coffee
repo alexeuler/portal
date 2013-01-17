@@ -54,7 +54,7 @@ App.namespace 'App.Views.Forum.Boards', (ns)->
                                 name:@$el.find('input#board-name').val()
                                 description:@$el.find('input#board-description').val()
                         @model.save()
-                        @model.fetch()
+                        @toggle()
 
                 destroy:->
                         if confirm 'Вы уверены?'

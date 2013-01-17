@@ -5,8 +5,8 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
 
                 events:
                         "click .board-group-item-inputs, .board-group-item-controls":"contain"
-                        "click #edit":"toggleEdit"
-                        "click #cancel":"toggleEdit"                
+                        "click #edit":"toggle"
+                        "click #cancel":"toggle"                
                         "click #ok":"submit"
                         "keyup input":"submit"   
 
@@ -39,16 +39,17 @@ App.namespace 'App.Views.Forum.Groups', (ns)->
                                                 when 13
                                                         @update()                                                
                                                 when 27
-                                                        @toggleEdit()
+                                                        @toggle()
                 update:->
                         @model.set
                                 name:@$el.find('input#board-group-name').val()
                         @model.save()
-                        @model.fetch()                        
+                        @toggle()
 
-                toggleEdit:->
+                toggle:->
                         @$el
-                        .find('.board-group-item-show, .board-group-item-inputs, .board-group-item-controls')
+                        .find('.board-group-item')
+                        .children()
                         .toggleClass('hide')
                         
                 remove:->
