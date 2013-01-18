@@ -15,7 +15,7 @@
 //= require underscore
 //= require backbone
 //= require ./init
-//= require_tree ./helpers
+//= require ./helpers/index
 //= require_tree ./templates
 //= require_tree ./models
 //= require_tree ./collections

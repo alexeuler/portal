@@ -1,5 +1,5 @@
 App.namespace 'App.Views.Forum.Boards', (ns)->
-        class ns.New extends Backbone.View
+        class ns.New extends App.Classes.View
 
                 template: JST['templates/forum/boards/new']
 

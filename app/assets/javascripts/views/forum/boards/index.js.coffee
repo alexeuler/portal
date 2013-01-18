@@ -1,5 +1,5 @@
 App.namespace 'App.Views.Forum.Boards', (ns)->
-        class ns.Index extends Backbone.View
+        class ns.Index extends App.Classes.View
 
                 tagName:'div'
                 className:'boards'

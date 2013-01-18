@@ -1,2 +1,2 @@
-class App.Models.BoardGroup extends Backbone.Model
+class App.Models.BoardGroup extends App.Classes.Model
         urlRoot : '/forum/board_groups'

@@ -1,6 +1,5 @@
 App.namespace 'App.Views.Helpers', (ns)->
-        
-        class ns.Field extends Backbone.View
+        class ns.Field extends App.Classes.View
                 template:JST['templates/helpers/field']
 
                 tagName:'tr'

@@ -1,4 +1,4 @@
-class App.Models.Board extends Backbone.Model
+class App.Models.Board extends App.Classes.Model
         urlRoot : '/forum/boards'
 
         initialize:->

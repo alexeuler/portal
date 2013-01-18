@@ -1,4 +1,4 @@
-class App.Routers.Boards extends Backbone.Router
+class App.Routers.Boards extends App.Classes.Router
         routes:
                 "forum/boards/:id": "show"
                 "forum": "index"

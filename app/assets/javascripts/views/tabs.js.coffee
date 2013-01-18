@@ -1,4 +1,4 @@
-class App.Views.Tabs extends Backbone.View
+class App.Views.Tabs extends App.Classes.View
         
         template: JST['templates/tabs']
 

@@ -1,4 +1,4 @@
-class App.Views.App extends Backbone.View
+class App.Views.App extends App.Classes.View
         template:JST['templates/app']
         
         el:'body'
