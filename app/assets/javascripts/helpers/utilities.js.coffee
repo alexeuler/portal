@@ -1,3 +1,5 @@
+window.App||={}
+
 App.namespace = (target, name, block) ->
   [target, name, block] = [(if typeof exports isnt 'undefined' then exports else window), arguments...] if arguments.length < 3
   top    = target
@@ -12,3 +14,4 @@ App.ExtractOptions = (options, names...) ->
         for key in _(result).keys()
                 delete options[key]
         if names.length is 1 then result[names[0]] else result
+

@@ -6,6 +6,8 @@ gem 'sqlite3'
 
 group :test, :development do
   gem 'factory_girl_rails'
+  gem 'jasmine'
+  gem 'jasminerice'  
   gem "rspec-rails", "~> 2.0"
 end
 
