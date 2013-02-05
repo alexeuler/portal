@@ -16,8 +16,11 @@ App.namespace 'App', (ns)->
                         @_current=0
                         
                 next: ->
-                        @_current++
-                        @current()
+                        if @hasNext() 
+                                @_current++
+                                @current()
+                        else
+                                throw "Iterator out of bounds"
 
                 current: ->
                         @list[@index[@_current]]
