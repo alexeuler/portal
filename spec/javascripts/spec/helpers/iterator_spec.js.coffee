@@ -1,4 +1,4 @@
-describe 'Iterator', ->
+describe 'App.Iterator', ->
         
         it 'iterates as is if sort is null', ->
                 list=[1,2,3,4,3]

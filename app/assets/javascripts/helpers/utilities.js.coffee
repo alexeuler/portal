@@ -15,17 +15,27 @@ App.ExtractOptions = (options, names...) ->
                 delete options[key]
         if names.length is 1 then result[names[0]] else result
 
+
+# Returns a function that extracts fields
+# E.g. a={name:{nested:1}}
+# extractor=App.FieldExtractor('name.nested')
+# Then extractor(a)=1
+# If name='', null, or undefined returns (x)->x
 App.FieldExtractor = (name)->
         fields=if name is '' then null else name?.split '.'
         (x)->
                 if fields? then x=x[item] for item in fields
                 x
 
+# Returns sort function
+# Options:
+#    -field: the field by which sort is performed, e.g. name.nested. If undefined sorts by object itself
+#    -order: if 'desc' then sorts descending o/w ascending
 App.CreateSort=(options={})->
-        field=options['field']||(x)->x
+        fieldExtractor=App.FieldExtractor options['field']
         if options['order'] is 'desc' then order=-1 else order=1
         result=(a,b)->
                 switch true
-                        when field(a)<field(b) then -order
-                        when field(a) is field(b) then 0
+                        when fieldExtractor(a)<fieldExtractor(b) then -order
+                        when fieldExtractor(a) is fieldExtractor(b) then 0
                         else order                                

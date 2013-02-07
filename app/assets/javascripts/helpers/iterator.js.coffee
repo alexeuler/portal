@@ -4,11 +4,11 @@ App.namespace 'App', (ns)->
                         @list=options['list']
                         @sort=options['sort']
                         i=0
-                        indexed_array=@list.map (element)->
+                        indexedArray=@list.map (element)->
                                 [i++,element]
-                        if @sort then indexed_array=indexed_array.sort (a,b)=>
+                        if @sort then indexedArray=indexedArray.sort (a,b)=>
                                 @sort a[1],b[1]
-                        @index=indexed_array.map (element)->
+                        @index=indexedArray.map (element)->
                                 element[0]
                         @reset()
                         
