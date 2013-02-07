@@ -22,7 +22,13 @@ App.ExtractOptions = (options, names...) ->
 # Then extractor(a)=1
 # If name='', null, or undefined returns (x)->x
 App.FieldExtractor = (name)->
-        fields=if name is '' then null else name?.split '.'
+        if name is ''
+                fields=null
+        else
+                try
+                        fields=name?.split '.'
+                catch error
+                        throw "String expected"
         (x)->
                 if fields? then x=x[item] for item in fields
                 x

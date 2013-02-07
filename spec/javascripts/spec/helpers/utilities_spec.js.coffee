@@ -9,7 +9,10 @@ describe "App.FieldExtractor", ->
                 test=name: '1'
                 expect((App.FieldExtractor())(test)).toEqual test
                 expect((App.FieldExtractor(null))(test)).toEqual test
-                expect((App.FieldExtractor(''))(test)).toEqual test                
+                expect((App.FieldExtractor(''))(test)).toEqual test
+                
+        it "throws String expected when name is not string", ->
+                expect(-> App.FieldExtractor(new Object)).toThrow("String expected")
 
 describe "App.CreateSort", ->
         it "sorts asc when only field is specified", ->

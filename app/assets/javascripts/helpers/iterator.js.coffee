@@ -2,11 +2,11 @@ App.namespace 'App', (ns)->
         class ns.Iterator
                 constructor:(options)->
                         @list=options['list']
-                        @sort=options['sort']
+                        @sort=App.CreateSort options['sort']
                         i=0
                         indexedArray=@list.map (element)->
                                 [i++,element]
-                        if @sort then indexedArray=indexedArray.sort (a,b)=>
+                        if options['sort'] then indexedArray=indexedArray.sort (a,b)=>
                                 @sort a[1],b[1]
                         @index=indexedArray.map (element)->
                                 element[0]
