@@ -1,8 +1,12 @@
 # Iterator class
-# Iterates through a COPY of array, specified by list parameter
+# Iterates through array, specified by the list parameter
 # Options:
 #   -list: list to iterate through
 #   -sort: parameters to iterate in particular order (see sort)
+# When array is empty
+#   -current is undefined
+#   -hasNext is false
+#   -forEach does nothing
 
 App.namespace 'App', (ns)->
         class ns.Iterator
@@ -22,6 +26,7 @@ App.namespace 'App', (ns)->
                         @index=indexedArray.map (element)->
                                 element[0]                        
                         @_current=0
+                        @
                         
                 next: ->
                         if @hasNext() 
@@ -35,3 +40,12 @@ App.namespace 'App', (ns)->
                         
                 hasNext: ->
                         @_current+1<@index.length
+
+                forEach: (func)->
+                        @reset()
+                        if @index.length>0
+                                func(@current())
+                                while @hasNext()                                
+                                        @next()
+                                        func(@current())
+                        @

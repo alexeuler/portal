@@ -38,4 +38,18 @@ describe 'App.Iterator', ->
                 iterator.next()
                 iterator.next()
                 expect(-> iterator.next()).toThrow("Iterator out of bounds")
-                                
+
+        it 'executes functions in forEach cycle', ->
+                list=[1,2,3]
+                iterator=new App.Iterator list:list
+                result=[]
+                iterator.forEach (x)->result.push x
+                expect(result).toEqual list
+
+        it 'has current - undefined, hasNext - false, forEach does nothing when array is empty', ->
+                iterator=new App.Iterator list:[]
+                expect(iterator.current()).toBeUndefined()
+                expect(iterator.hasNext()).toBeFalsy()
+                i=0
+                iterator.forEach ->i++
+                expect(i).toEqual 0
