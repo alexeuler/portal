@@ -1,3 +1,3 @@
 //= require ./utilities
 //= require ./iterator
-//= require ./classes/index
+//= require ./MVC/index
