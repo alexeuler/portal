@@ -10,7 +10,7 @@
 
 App.namespace 'App', (ns)->
         class ns.Iterator
-                constructor:(options)->
+                constructor: (options)->
                         @list=options['list']
                         @sort=options['sort']
                         @reset()
