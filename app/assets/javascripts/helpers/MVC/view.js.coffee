@@ -14,9 +14,9 @@ App.namespace 'App.MVC', (ns)->
                 forEach:  (func, order)->
                         _iterator=iterator||new App.Iterator list:@children, sort:@sort
                         _iterator.forEach (child)->
-                                unless order is 'post' func(child)
+                                func(child) unless order is 'post' 
                                 child.forEach(func)
-                                if order is 'post' func(child)
+                                func(child) if order is 'post' 
 
                 forEachChild: (func)->
                         _iterator=iterator||new App.Iterator list:@children, sort:@sort
