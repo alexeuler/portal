@@ -35,13 +35,28 @@ App.namespace 'App.MVC', (ns)->
                                 @$el.find(child.container).append child.$el
                                                 
                 addChild: (options)->
+                        sortOnAdd=App.ExtractOptions options, 'sortOnAdd'
+                        renderOnAdd=App.ExtractOptions options, 'renderOnAdd'
+                        options=_.defaults options || {}, parent:@
+                        child=new App.MVC.View(options)
+                        @children.push child
+                        child.render() if renderOnAdd
+                        if sortOnAdd
+                                #extract all children in the same container
+                                # find insert position
+                                # append
+                                @$el.find(child.container).append child.$el
 
-                find: (field)->
-
+                find: (field, value)->
+                        result
+                        extractor=new App.FieldExtractor field
+                        @forEach (child)->
+                                if extractor child is value then result=child
+                        
                 findChild: (field)->
 
                 remove: ->
                         super
                         @unbind()
                         @deleteChildren()
-                        @removeFromParent()
+                        @removeFromParent

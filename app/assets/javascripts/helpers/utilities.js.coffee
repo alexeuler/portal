@@ -10,6 +10,7 @@ App.namespace = (target, name, block) ->
 # If only 1 name is passed, returns value of that option,
 # o/w returns hash of extracted options
 App.ExtractOptions = (options, names...) ->
+        return unless options 
         result=_.pick(options, names...)
         for key in _(result).keys()
                 delete options[key]
