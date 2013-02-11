@@ -19,7 +19,7 @@ App.namespace 'App.MVC', (ns)->
                                 func(child) if order is 'post' 
 
                 forEachChild: (func)->
-                        _iterator=iterator||new App.Iterator list:@children, sort:@sort
+                        _iterator=@iterator||new App.Iterator list:@children, sort:@sort
                         _iterator.forEach(func)
 
                 renderSelf: ->
@@ -42,6 +42,7 @@ App.namespace 'App.MVC', (ns)->
                         @children.push child
                         child.render() if renderOnAdd
                         if sortOnAdd
+                                children=@filterChildren('container', child.container)
                                 #extract all children in the same container
                                 # find insert position
                                 # append
@@ -53,7 +54,19 @@ App.namespace 'App.MVC', (ns)->
                         @forEach (child)->
                                 if extractor child is value then result=child
                         
-                findChild: (field)->
+                findChild: (field, value)->
+
+                filterChildren: (field, value)->
+                        throw "Value must be specified" unless (value?)
+                        result=[]
+                        extractor=new App.FieldExtractor field
+                        @forEachChild (child)->
+                                try
+                                        extracted=extractor(child)
+                                catch e
+                                        extracted=null
+                                result.push child if extracted is value
+                        result
 
                 remove: ->
                         super
