@@ -24,4 +24,30 @@ describe "App.CreateSort", ->
         it "sorts desc when order is desc", ->
                 list=[1,2,3]
                 expect(list.sort(App.CreateSort order:'desc')).toEqual [3,2,1]
+        it "accepts fileds separated by spaces and sorts by 1st field then by 2nd, etc.", ->
+                sortFunc=App.CreateSort field:'name.last money'
+                list=[]
+                list.push
+                        name:
+                                last:'Karasev'
+                                first:'Alexey'
+                        money:100
+                list.push
+                        name:
+                                last:'Goncharov'
+                                first:'Dmitry'
+                        money:200
+                list.push
+                        name:
+                                last:'Goncharov'
+                                first:'Andrey'
+                        money:100
+                list.push
+                        name:
+                                last:'Alexeev'
+                                first:'Alexander'
+                        money:400
+                sorted=list.sort(sortFunc).map (x)->x.name.first
+                expect(sorted).toEqual ['Alexander','Andrey','Dmitry','Alexey']
+                
 

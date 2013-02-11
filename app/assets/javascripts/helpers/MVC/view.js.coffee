@@ -35,18 +35,27 @@ App.namespace 'App.MVC', (ns)->
                                 @$el.find(child.container).append child.$el
                                                 
                 addChild: (options)->
-                        sortOnAdd=App.ExtractOptions options, 'sortOnAdd'
-                        renderOnAdd=App.ExtractOptions options, 'renderOnAdd'
+                        sortOnAdd=App.ExtractOptions options, 'sort'
+                        renderOnAdd=App.ExtractOptions options, 'render'
                         options=_.defaults options || {}, parent:@
                         child=new App.MVC.View(options)
                         @children.push child
                         child.render() if renderOnAdd
                         if sortOnAdd
-                                children=@filterChildren('container', child.container)
-                                #extract all children in the same container
-                                # find insert position
-                                # append
-                                @$el.find(child.container).append child.$el
+                                sortFunction=App.CreateSort field:@sort
+                                insertBefore=null
+                                try
+                                        @forEachChild (_child)->
+                                                throw child unless sortFunction(child, _child) is 1
+                                catch _child
+                                        insertBefore=_child
+                                if insertBefore
+                                        insertBefore.$el.insertBefore child.$el
+                                else
+                                        @getElement(@$el,child.container).append child.$el
+                        else
+                                @getElement(@$el,child.container).append child.$el
+                                
 
                 find: (field, value)->
                         result
@@ -67,6 +76,12 @@ App.namespace 'App.MVC', (ns)->
                                         extracted=null
                                 result.push child if extracted is value
                         result
+
+                getElement: (el, selector)->
+                        result=el.find(selector)
+                        if result.length is 0 then return el
+                        result[0]
+                
 
                 remove: ->
                         super

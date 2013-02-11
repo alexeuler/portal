@@ -39,10 +39,12 @@ App.FieldExtractor = (name)->
 #    -field: the field by which sort is performed, e.g. name.nested. If undefined sorts by object itself
 #    -order: if 'desc' then sorts descending o/w ascending
 App.CreateSort=(options={})->
-        fieldExtractor=App.FieldExtractor options['field']
+        fields=options['field']?.split(' ') || [null]
+        extractors=fields.map (field)->App.FieldExtractor field
         if options['order'] is 'desc' then order=-1 else order=1
         result=(a,b)->
-                switch true
-                        when fieldExtractor(a)<fieldExtractor(b) then -order
-                        when fieldExtractor(a) is fieldExtractor(b) then 0
-                        else order                                
+                for extractor in extractors
+                        switch true
+                                when extractor(a)<extractor(b) then return -order
+                                when extractor(a)>extractor(b) then return order
+                0
