@@ -1,14 +1,10 @@
 App.namespace 'App.MVC', (ns)->
         class ns.View extends Backbone.View
-                children: []
-                container:''
-                parent:null
-                sort:''
-                iterator:null
                 
                 constructor: (options)->
                         for name in ['parent', 'sort', 'children', 'container','iterator']
                                 @[name]=App.ExtractOptions(options, name)||@[name]
+                        @children||=[]
                         super(options)
 
                 forEach:  (func, order)->
@@ -34,27 +30,27 @@ App.namespace 'App.MVC', (ns)->
                                 child.render()
                                 @$el.find(child.container).append child.$el
                                                 
-                addChild: (options)->
-                        sortOnAdd=App.ExtractOptions options, 'sort'
+                addChild: (child, options)->
                         renderOnAdd=App.ExtractOptions options, 'render'
                         options=_.defaults options || {}, parent:@
-                        child=new App.MVC.View(options)
-                        @children.push child
+                        child[key]=value for key, value of options
                         child.render() if renderOnAdd
-                        if sortOnAdd
+                        if @sort
                                 sortFunction=App.CreateSort field:@sort
                                 insertBefore=null
                                 try
-                                        @forEachChild (_child)->
-                                                throw child unless sortFunction(child, _child) is 1
+                                        _iterator=new App.Iterator list:@filterChildren('container',child.container), sort:@sort
+                                        _iterator.forEach (_child)->
+                                                throw _child unless sortFunction(child, _child) is 1
                                 catch _child
                                         insertBefore=_child
                                 if insertBefore
-                                        insertBefore.$el.insertBefore child.$el
+                                        child.$el.insertBefore insertBefore.$el
                                 else
                                         @getElement(@$el,child.container).append child.$el
                         else
                                 @getElement(@$el,child.container).append child.$el
+                        @children.push child
                                 
 
                 find: (field, value)->
@@ -66,7 +62,6 @@ App.namespace 'App.MVC', (ns)->
                 findChild: (field, value)->
 
                 filterChildren: (field, value)->
-                        throw "Value must be specified" unless (value?)
                         result=[]
                         extractor=new App.FieldExtractor field
                         @forEachChild (child)->
@@ -80,7 +75,7 @@ App.namespace 'App.MVC', (ns)->
                 getElement: (el, selector)->
                         result=el.find(selector)
                         if result.length is 0 then return el
-                        result[0]
+                        $(result[0])
                 
 
                 remove: ->
